@@ -14,7 +14,9 @@ app.get('/', (req, res) => {
 
 app.get("/health", (req,res)=>res.json({status:"ok"}));
 
-const Port = 3000 ; 
+const Port = process.env.PORT || 3000 ; 
 app.listen(Port,()=>{
     console.log(`Serveur lancé sur http://localhost:${Port}`);
 });
+
+module.exports = app;
