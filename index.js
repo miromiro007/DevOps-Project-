@@ -15,8 +15,11 @@ app.get('/', (req, res) => {
 app.get("/health", (req,res)=>res.json({status:"ok"}));
 
 const Port = process.env.PORT || 3000 ; 
-app.listen(Port,()=>{
-    console.log(`Serveur lancé sur http://localhost:${Port}`);
-});
+
+if (require.main === module) {
+  app.listen(Port,()=>{
+      console.log(`Serveur lancé sur http://localhost:${Port}`);
+  });
+}
 
 module.exports = app;
