@@ -1,0 +1,10 @@
+services:
+  api:
+    build: .
+    image: crudbooks-backend:1.0
+    container_name: crudbooks-api
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    restart: unless-stopped
