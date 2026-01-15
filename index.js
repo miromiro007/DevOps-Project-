@@ -53,7 +53,19 @@ app.get('/', (req, res) => {
   res.send('Hello Express 🚀');
 });
 
-app.get("/health", (req,res)=>res.json({status:"ok"}));
+app.get("/health", (req, res) => {
+  res.json({
+    status: "ok",
+    uptime: Math.floor(process.uptime()),
+    timestamp: new Date().toISOString(),
+    version: require('./package.json').version,
+    environment: process.env.NODE_ENV || 'development',
+    memory: {
+      used: Math.floor(process.memoryUsage().heapUsed / 1024 / 1024) + 'MB',
+      total: Math.floor(process.memoryUsage().heapTotal / 1024 / 1024) + 'MB'
+    }
+  });
+});
 
 // Endpoint pour exposer les métriques Prometheus
 app.get('/metrics', async (req, res) => {
