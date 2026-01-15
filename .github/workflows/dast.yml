@@ -53,13 +53,18 @@ jobs:
           cmd_options: '-a'
           allow_issue_writing: false
           fail_action: false
+        env:
+          ZAP_ARTIFACTS: 'false'
 
       - name: Upload ZAP Scan Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: zap-scan-report
-          path: report_html.html
+          name: zapscan
+          path: |
+            report_html.html
+            report_md.md
+            report_json.json
           retention-days: 30
 
       - name: Stop application
