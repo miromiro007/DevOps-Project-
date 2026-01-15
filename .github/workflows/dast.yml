@@ -40,10 +40,15 @@ jobs:
           docker logs test-api
           exit 1
 
+      - name: Make workspace writable for ZAP
+        run: |
+          echo "Granting write permissions to workspace for ZAP container..."
+          chmod -R a+w .
+
       - name: Run OWASP ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.12.0
         with:
-          target: 'http://host.docker.internal:3000'
+          target: 'http://localhost:3000'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a'
           allow_issue_writing: false
