@@ -1,10 +1,22 @@
 const express = require("express")
+const rateLimit = require('express-rate-limit');
 const responseTime = require('response-time');
 const logger = require('./logger');
 const { register, httpRequestCounter, httpRequestDuration } = require('./metrics');
 
 const app = express();
 app.use(express.json());
+
+// Rate limiting middleware - 100 requests per 15 minutes
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+app.use('/api/', limiter);
 
 // Middleware pour logger toutes les requêtes
 app.use((req, res, next) => {
