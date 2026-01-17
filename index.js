@@ -63,6 +63,26 @@ app.get('/metrics', async (req, res) => {
 
 const Port = process.env.PORT || 3000 ; 
 
+// Global error handling middleware
+app.use((err, req, res, next) => {
+  logger.error('Unhandled error occurred', {
+    error: err.message,
+    stack: err.stack,
+    url: req.url,
+    method: req.method,
+    ip: req.ip
+  });
+  
+  const statusCode = err.status || err.statusCode || 500;
+  res.status(statusCode).json({
+    error: {
+      message: err.message || 'Internal server error',
+      status: statusCode,
+      timestamp: new Date().toISOString()
+    }
+  });
+});
+
 if (require.main === module) {
   app.listen(Port,()=>{
       logger.info(`Serveur lancé sur http://localhost:${Port}`);

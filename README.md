@@ -14,6 +14,24 @@ A RESTful API for managing a books inventory system with CRUD operations, filter
 
 ## 🚀 Quick Start
 
+### 🐳 Quick Start with Docker Hub (Recommended)
+
+Pull and run the pre-built image from Docker Hub:
+
+```bash
+# Pull the image
+docker pull miromiro007/crudbooks-backend:latest
+
+# Run the container
+docker run -d -p 3000:3000 --name crudbooks-api miromiro007/crudbooks-backend:latest
+
+# Test the API
+curl http://localhost:3000/health
+curl http://localhost:3000/api/books
+```
+
+**Docker Hub Repository:** [miromiro007/crudbooks-backend](https://hub.docker.com/r/miromiro007/crudbooks-backend)
+
 ### Prerequisites
 - Node.js v16+ 
 - npm
@@ -22,7 +40,7 @@ A RESTful API for managing a books inventory system with CRUD operations, filter
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/crudbooks-backend.git
+git clone https://github.com/miromiro007/DevOps-Project-.git
 cd crudbooks-backend
 
 # Install dependencies
